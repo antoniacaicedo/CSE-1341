@@ -1,7 +1,3 @@
-/*
-Agent class for simple attractor-based movement model
- Donya Quick
- */
 
 class Fish {
   PImage img; 
@@ -18,14 +14,12 @@ class Fish {
   float yAccel = 0;
   boolean isFirst = true;
   int counter = round (random (0, 5));
-  // bounds for altering movement over time
   float sBound = 2;
   float aBound = 0.2; 
   float maxAccel = 0.4; 
   float aFactor = 0.4; 
-  // color and size variables
   color c;
-  float aSize = 0;
+  float fSize = 0;
 
   Fish() {
     img = toARGB(loadImage("img.fish.jpg"));
@@ -68,9 +62,6 @@ class Fish {
     }
     counter++;
   }
-
-  // ellipse(x, y, aSize, aSize);
-
   void moveFish() {
     if ((x >= 570) || (x <= 150)) {
       xSpeed = xSpeed * -1;
@@ -88,10 +79,7 @@ class Fish {
       }
     }
     return newImg;
-  }
-  
-  //call resize function
-  
+  }  
   PImage toARGB(PImage orig) {
     PImage newImg = createImage(orig.width, orig.height, ARGB);
     for (int i=0; i<orig.pixels.length; i++) {
@@ -108,10 +96,10 @@ class Fish {
     }
   }
   void update() {
-    x = cap(x + xSpeed, aSize, width-aSize);
-    y = cap(y + ySpeed, aSize, height-aSize);
-    xSpeed = cap(bounce(xSpeed + xAccel, x, aSize, width-aSize), -sBound, sBound);
-    ySpeed = cap(bounce(ySpeed + yAccel, y, aSize, height-aSize), -sBound, sBound);
+    x = cap(x + xSpeed, fSize, width-fSize);
+    y = cap(y + ySpeed, fSize, height-fSize);
+    xSpeed = cap(bounce(xSpeed + xAccel, x, fSize, width-fSize), -sBound, sBound);
+    ySpeed = cap(bounce(ySpeed + yAccel, y, fSize, height-fSize), -sBound, sBound);
     xAccel = cap(xAccel + random(-aBound, aBound), -maxAccel, maxAccel);
     yAccel = cap(yAccel + random(-aBound, aBound), -maxAccel, maxAccel);
 
@@ -124,8 +112,6 @@ class Fish {
       }
     }
   }
-
-  // reflect off the sides of the window
   float bounce(float speed, float x, float lower, float upper) {
     if (x <= lower && speed < 0 || x >=upper && speed > 0) {
       return -speed;
@@ -133,8 +119,6 @@ class Fish {
       return speed;
     }
   }
-
-  // helper function to bound a value
   float cap(float val, float lower, float upper) {
     return max(min(val, upper), lower);
   }
