@@ -30,18 +30,16 @@ class Fish {
   Fish() {
     img = toARGB(loadImage("img.fish.jpg"));
     imgB = toARGB(loadImage("img.fish.jpg"));
-   // setTransparency(tColor, img);
-   // setTransparency(tColor, imgB);
     img2 = flip(img);
     img2B = flip(imgB);
     w = img.width/2;
     h = img.height/2;    
     xSpeed = random(-sBound, sBound);
+    System.out.println(xSpeed);
     ySpeed = random(-sBound, sBound);
     xAccel = random(-aBound, aBound);
     yAccel = random(-maxAccel, maxAccel);
-   // aSize = random(20, 30);
-   // c = color(round(random(50, 200)), round(random(50, 200)), round(random(50, 200)));
+ 
   }
 
   void setLocation(float x, float y) {
@@ -77,12 +75,12 @@ class Fish {
     if ((x >= 570) || (x <= 150)) {
       xSpeed = xSpeed * -1;
     }
-    if ((y >= 500) || (y <= 0)) {
+    if ((y >= 475) || (y <= 0)) {
       ySpeed = ySpeed * -1;
     }
   }
   
-  PImage flip(PImage orig) {
+ PImage flip(PImage orig) {
     PImage newImg = createImage(orig.width, orig.height, ARGB);
     for (int i=0; i<orig.height; i++) { // for each row... (y axis)
       for (int j=0; j<orig.width; j++) { // for each column... (x axis)
